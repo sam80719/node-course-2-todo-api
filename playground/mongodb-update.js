@@ -26,12 +26,14 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
             name : "sam"
         } ,
         $inc: {
-            age: 1
+             age: 1 //age increment add 1
         }
     }, {
         returnOriginal: false
     }).then((result)=>{
         console.log(result);
+    }, (err)=>{
+        console.log(`unable to update: ${err} `);
     });
 
 
