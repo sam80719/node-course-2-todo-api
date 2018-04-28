@@ -5,14 +5,14 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-var {ObjectID} = require('mongodb');
+var { ObjectID } = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
 var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
 
 var app = express();
-const port = process.env.PORT||3000;
+const port = process.env.PORT || 3000;
 
 
 app.use(bodyParser.json());
@@ -45,36 +45,61 @@ app.get('/todos/:id', (req, res) => {
     // res.send(req.params);
 
     //valid id using is valid
-     // 404-send back empty send
+    // 404-send back empty send
 
     //findById
-     // success
-      //if todo -send it back
-      //if no todo- send back 404 with empty body
-     //error
-      //400 - and send empty body back
+    // success
+    //if todo -send it back
+    //if no todo- send back 404 with empty body
+    //error
+    //400 - and send empty body back
 
-    if(!ObjectID.isValid(id)) {
+    if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
-    Todo.findById(id).then((todo)=>{
-        if(!todo){
+    Todo.findById(id).then((todo) => {
+        if (!todo) {
             return res.status(404).send();
         }
 
-        res.send({todo});
-    }).catch((e)=>{
+        res.send({ todo });
+    }).catch((e) => {
         res.status(400).send();
     });
 
     //findById
-     // success
-      //if todo -send it back
-      //if no todo- send back 404 with empty body
-     //error
-      //400 - and send empty body back
+    // success
+    //if todo -send it back
+    //if no todo- send back 404 with empty body
+    //error
+    //400 - and send empty body back
 
+});
+
+app.delete('/todos/:id', (req, res) => {
+    //get the id
+    var id = req.params.id;
+
+    //validate the id->not valid? return 404
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    //remove todo by id
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+        res.send(todo);
+    }).catch((e) => {
+        res.status(400).send();
+    });
+    //success
+    //if no doc, send 404
+    //id doc, send doc back with 200
+    //error
+    //400 with empty body
 });
 
 
