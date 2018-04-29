@@ -2,7 +2,7 @@
 
 // mongoose.Promise = global.Promise;
 // mongoose.connect('mongodb://localhost:27017/TodoApp');
-
+var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
 var { ObjectID } = require('mongodb');
@@ -91,7 +91,7 @@ app.delete('/todos/:id', (req, res) => {
             return res.status(404).send();
         }
 
-        res.send(todo);
+        res.send({todo});
     }).catch((e) => {
         res.status(400).send();
     });
