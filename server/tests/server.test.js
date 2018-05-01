@@ -61,10 +61,10 @@ const { Todo } = require('./../models/todo');
 
 const todos = [{
     _id: new ObjectID(),
-    text: 'first test todo'
+    text: 'First test todo'
 }, {
     _id: new ObjectID(),
-    text: 'second test todo'
+    text: 'Second test todo'
 }];
 
 beforeEach((done) => {
@@ -124,7 +124,7 @@ describe('GET/todos', () => {
                 expect(res.body.todos.length).toBe(2);
             })
             .end(done);
-    })
+    });
 });
 
 describe('GET/todos/:id', () => {
