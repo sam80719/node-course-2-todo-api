@@ -147,7 +147,7 @@ app.patch('/todos/:id', (req, res) => {
 //POST/user
 
 app.post('/users', (req,res)=>{
-    var bodt = _.pick(req.body, ['email','password']);
+    var body = _.pick(req.body, ['email','password']);
     var user = new User(body);
 
     user.save().then((user)=>{
